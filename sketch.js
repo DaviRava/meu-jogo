@@ -3,9 +3,7 @@ var aviaoImg, pintoImg, pinto2Img, pinto3Img;
 var pintoG;
 var resetar, restart;
 
-var PLAY=1;
-var END=1;
-var gameState=1;
+var gameState = "playing"
 
 
 
@@ -25,7 +23,8 @@ function setup(){
     aviao.addImage("aviaoImg",aviaoImg);
     aviao.debug=false
     aviao.setCollider("rectangle",0,0,150,350,0)
-
+    
+    resetar = createSprite(300, 250)
     resetar.addImage("restart", restart);
     resetar.visible = false
     resetar.scale = 0.5
@@ -34,7 +33,7 @@ function setup(){
 
 }
 function draw() {
-    if(gameState===PLAY){
+    if(gameState === "playing"){
  
  background("LightBlue");
  aviao.x = World.mouseX;
@@ -57,19 +56,18 @@ function draw() {
   }
   
   if(pintoG.isTouching(aviao)) {
-    gameState=END;
+    gameState= "youdeath";
 
   }
 }
-if(gameState===END){
+else if (gameState === "youdeath"){
   resetar.visible = true
+  console.log("sla")
   pintoG.velocityY = 0
   
   if (mousePressedOver(resetar)) {
     resetall()
-    
-
-  }
+    }
 }
  
 }
@@ -106,7 +104,7 @@ function createPinto3() {
     
     }
     function resetall(){
-      gameState = PLAY
+      gameState = "playing"
       resetar.visible = false
     }
     
